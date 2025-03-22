@@ -1,5 +1,6 @@
 package tests;
 
+import helpMethods.ElementHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -7,68 +8,70 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import sharedData.SharedData;
 
 import java.util.List;
 
-public class WebtableTest {
+public class WebtableTest extends SharedData {
 
-    public WebDriver driver;
+    //public WebDriver driver;
 
     @Test
     public void metodaTest () {
+
+        ElementHelper elementHelper = new ElementHelper(driver);
         //deschidem un browser
-        driver=new ChromeDriver();
+        //driver=new ChromeDriver();
 
         //accesam o pagina web
-        driver.get("https://demoqa.com/");
+        //driver.get("https://demoqa.com/");
 
-        JavascriptExecutor executor = (JavascriptExecutor) driver;
 
-        WebElement elementsMenu=driver.findElement(By.xpath("//h5[text()='Elements']"));
-        executor.executeScript("arguments[0].click();", elementsMenu);
+        By elementsMenu=By.xpath("//h5[text()='Elements']");
+        elementHelper.clickJSLocator(elementsMenu);
 
-        WebElement webTableSubMenu=driver.findElement(By.xpath("//span[text()='Web Tables']"));
-        executor.executeScript("arguments[0].click();", webTableSubMenu);
+        By webTableSubMenu=By.xpath("//span[text()='Web Tables']");
+        elementHelper.clickJSLocator(webTableSubMenu);
 
         //facem browserul in modul maximize
-        driver.manage().window().maximize();
+        //driver.manage().window().maximize();
 
 
         List<WebElement> tableRowsList = driver.findElements(By.xpath("//div[@class='rt-tbody']/div/div[@class='rt-tr -even'or@class='rt-tr -odd']"));
                 Assert.assertEquals(tableRowsList.size(),3, "Valoarea initiala a tabelului  nu este 3.");
 
         //identifica un element
-        WebElement addElement=driver.findElement(By.id("addNewRecordButton"));
-        executor.executeScript("arguments[0].click();", addElement);
+        By addElement=By.id("addNewRecordButton");
+        elementHelper.clickJSLocator(addElement);
 
 
 
-        WebElement firstNameElement=driver.findElement(By.id("firstName"));
+        By firstNameElement=By.id("firstName");
         String firstNameValue="Lazar";
-        firstNameElement.sendKeys(firstNameValue);
+        elementHelper.fillLocator(firstNameElement, firstNameValue);
 
-        WebElement lastNameElement=driver.findElement(By.id("lastName"));
+       By lastNameElement=By.id("lastName");
         String lastNameValue="Cristina";
-        lastNameElement.sendKeys(lastNameValue);
+        elementHelper.fillLocator(lastNameElement, lastNameValue);
 
-        WebElement userEmailElement=driver.findElement(By.id("userEmail"));
+        By userEmailElement=By.id("userEmail");
         String userEmailValue="user@gmail.com";
-        userEmailElement.sendKeys(userEmailValue);
+        elementHelper.fillLocator(userEmailElement, userEmailValue);
 
-        WebElement ageElement=driver.findElement(By.id("age"));
+        By ageElement=By.id("age");
         String ageValue="29";
-        ageElement.sendKeys(ageValue);
+        elementHelper.fillLocator(ageElement, ageValue);
 
-        WebElement salaryElement=driver.findElement(By.id("salary"));
+        By salaryElement=By.id("salary");
         String salaryValue="5000";
-        salaryElement.sendKeys(salaryValue);
+        elementHelper.fillLocator(salaryElement, salaryValue);
 
-        WebElement departmentElement=driver.findElement(By.id("department"));
+        By departmentElement=By.id("department");
         String departmentValue="qa";
-        departmentElement.sendKeys(departmentValue);
+        elementHelper.fillLocator(departmentElement, departmentValue);
 
-        WebElement submitElement=driver.findElement(By.id("submit"));
-        submitElement.click();
+        By submitElement=By.id("submit");
+        elementHelper.clickLocator(submitElement);
 
         tableRowsList = driver.findElements(By.xpath("//div[@class='rt-tbody']/div/div[@class='rt-tr -even'or@class='rt-tr -odd']"));
         Assert.assertEquals(tableRowsList.size(),4, "Valoarea actuala a tabelului  nu este 4.");
@@ -82,8 +85,8 @@ public class WebtableTest {
 
 
         //edit functionality
-        WebElement editElement=driver.findElement(By.id("edit-record-4"));
-        editElement.click();
+        By editElement=By.id("edit-record-4");
+        elementHelper.clickLocator(editElement);
 
         WebElement editFirstNameElement= driver.findElement(By.id("firstName"));
         String editFirstNameValue="Totolici";
@@ -115,6 +118,9 @@ public class WebtableTest {
         editDepartmentElement.clear();
         editDepartmentElement.sendKeys(editDepartmentValue);
 
+        By resubmitElement=By.id("submit");
+        elementHelper.clickLocator(resubmitElement);
+
         tableRowsList = driver.findElements(By.xpath("//div[@class='rt-tbody']/div/div[@class='rt-tr -even'or@class='rt-tr -odd']"));
         Assert.assertEquals(tableRowsList.size(),4, "Valoarea actuala a tabelului  nu este 4.");
         expectedRow = tableRowsList.get(3).getText();
@@ -125,8 +131,8 @@ public class WebtableTest {
         Assert.assertTrue(expectedRow.contains(editSalaryValue));
         Assert.assertTrue(expectedRow.contains(editDepartmentValue));
 
-        WebElement editSubmitElement=driver.findElement(By.id("submit"));
-        editSubmitElement.click();
+        By deleteElement=By.id("delete-record-4");
+        elementHelper.clickLocator(deleteElement);
 
         tableRowsList = driver.findElements(By.xpath("//div[@class='rt-tbody']/div/div[@class='rt-tr -even'or@class='rt-tr -odd']"));
         Assert.assertEquals(tableRowsList.size(),3, "Valoarea actuala a tabelului  nu este 3.");
