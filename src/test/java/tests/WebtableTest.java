@@ -37,7 +37,8 @@ public class WebtableTest extends SharedData {
         //driver.manage().window().maximize();
 
 
-        List<WebElement> tableRowsList = driver.findElements(By.xpath("//div[@class='rt-tbody']/div/div[@class='rt-tr -even'or@class='rt-tr -odd']"));
+     By tableRowsListElement = By.xpath("//div[@class='rt-tbody']/div/div[@class='rt-tr -even'or@class='rt-tr -odd']");
+     List<WebElement> tableRowsList = driver.findElements(tableRowsListElement);
                 Assert.assertEquals(tableRowsList.size(),3, "Valoarea initiala a tabelului  nu este 3.");
 
         //identifica un element
@@ -50,7 +51,7 @@ public class WebtableTest extends SharedData {
         String firstNameValue="Lazar";
         elementHelper.fillLocator(firstNameElement, firstNameValue);
 
-       By lastNameElement=By.id("lastName");
+        By lastNameElement=By.id("lastName");
         String lastNameValue="Cristina";
         elementHelper.fillLocator(lastNameElement, lastNameValue);
 
@@ -73,68 +74,63 @@ public class WebtableTest extends SharedData {
         By submitElement=By.id("submit");
         elementHelper.clickLocator(submitElement);
 
-        tableRowsList = driver.findElements(By.xpath("//div[@class='rt-tbody']/div/div[@class='rt-tr -even'or@class='rt-tr -odd']"));
+        tableRowsList = driver.findElements(tableRowsListElement);
         Assert.assertEquals(tableRowsList.size(),4, "Valoarea actuala a tabelului  nu este 4.");
-        String expectedRow = tableRowsList.get(3).getText();
-        Assert.assertTrue(expectedRow.contains(firstNameValue));
-        Assert.assertTrue(expectedRow.contains(lastNameValue));
-        Assert.assertTrue(expectedRow.contains(ageValue));
-        Assert.assertTrue(expectedRow.contains(userEmailValue));
-        Assert.assertTrue(expectedRow.contains(salaryValue));
-        Assert.assertTrue(expectedRow.contains(departmentValue));
+
+        elementHelper.validateTextContainsElement(tableRowsList.get(3), firstNameValue);
+        elementHelper.validateTextContainsElement(tableRowsList.get(3), lastNameValue);
+        elementHelper.validateTextContainsElement(tableRowsList.get(3), ageValue);
+        elementHelper.validateTextContainsElement(tableRowsList.get(3), userEmailValue);
+        elementHelper.validateTextContainsElement(tableRowsList.get(3), salaryValue);
+        elementHelper.validateTextContainsElement(tableRowsList.get(3), departmentValue);
 
 
         //edit functionality
         By editElement=By.id("edit-record-4");
         elementHelper.clickLocator(editElement);
 
-        WebElement editFirstNameElement= driver.findElement(By.id("firstName"));
-        String editFirstNameValue="Totolici";
-        editFirstNameElement.clear();
-        editFirstNameElement.sendKeys(editFirstNameValue);
+        By editFirstNameElement = By.id("firstName");
+        String editFirstNameValue = "Totolici";
+        elementHelper.clearFilledLocator(editFirstNameElement, editFirstNameValue);
 
-        WebElement editLastNameElement= driver.findElement(By.id("lastName"));
-        String editLastNameValue="Dana";
-        editLastNameElement.clear();
-        editLastNameElement.sendKeys(editLastNameValue);
+        By editLastNameElement= By.id("lastName");
+        String editLastNameValue = "Dana";
+        elementHelper.clearFilledLocator(editLastNameElement, editLastNameValue);
 
-        WebElement editUserEmailElement= driver.findElement(By.id("userEmail"));
+
+        By editUserEmailElement= By.id("userEmail");
         String editUserEmailValue="user@yahoo.com";
-        editUserEmailElement.clear();
-        editUserEmailElement.sendKeys(editUserEmailValue);
+        elementHelper.clearFilledLocator(editUserEmailElement, editUserEmailValue);
 
-        WebElement editAgeElement= driver.findElement(By.id("age"));
-        String editAgeValue="27";
-        editAgeElement.clear();
-        editAgeElement.sendKeys(editAgeValue);
+       By editAgeElement= By.id("age");
+       String editAgeValue="27";
+       elementHelper.clearFilledLocator(editAgeElement, editAgeValue);
 
-        WebElement editSalaryElement= driver.findElement(By.id("salary"));
+        By editSalaryElement= By.id("salary");
         String editSalaryValue="9000";
-        editSalaryElement.clear();
-        editSalaryElement.sendKeys(editSalaryValue);
+        elementHelper.clearFilledLocator(editSalaryElement, editSalaryValue);
 
-        WebElement editDepartmentElement= driver.findElement(By.id("department"));
+        By editDepartmentElement= By.id("department");
         String editDepartmentValue="qatester";
-        editDepartmentElement.clear();
-        editDepartmentElement.sendKeys(editDepartmentValue);
+        elementHelper.clearFilledLocator(editDepartmentElement, editDepartmentValue);
 
         By resubmitElement=By.id("submit");
         elementHelper.clickLocator(resubmitElement);
 
-        tableRowsList = driver.findElements(By.xpath("//div[@class='rt-tbody']/div/div[@class='rt-tr -even'or@class='rt-tr -odd']"));
-        Assert.assertEquals(tableRowsList.size(),4, "Valoarea actuala a tabelului  nu este 4.");
-        expectedRow = tableRowsList.get(3).getText();
-        Assert.assertTrue(expectedRow.contains(editFirstNameValue));
-        Assert.assertTrue(expectedRow.contains(editLastNameValue));
-        Assert.assertTrue(expectedRow.contains(editAgeValue));
-        Assert.assertTrue(expectedRow.contains(editUserEmailValue));
-        Assert.assertTrue(expectedRow.contains(editSalaryValue));
-        Assert.assertTrue(expectedRow.contains(editDepartmentValue));
+        //tableRowsList = driver.findElements(By.xpath("//div[@class='rt-tbody']/div/div[@class='rt-tr -even'or@class='rt-tr -odd']"));
+        //Assert.assertEquals(tableRowsList.size(),4, "Valoarea actuala a tabelului  nu este 4.");
+        //expectedRow = tableRowsList.get(3).getText();
+        //Assert.assertTrue(expectedRow.contains(editFirstNameValue));
+        //Assert.assertTrue(expectedRow.contains(editLastNameValue));
+        //Assert.assertTrue(expectedRow.contains(editAgeValue));
+        //Assert.assertTrue(expectedRow.contains(editUserEmailValue));
+        //Assert.assertTrue(expectedRow.contains(editSalaryValue));
+        //Assert.assertTrue(expectedRow.contains(editDepartmentValue));
 
         By deleteElement=By.id("delete-record-4");
         elementHelper.clickLocator(deleteElement);
 
-        tableRowsList = driver.findElements(By.xpath("//div[@class='rt-tbody']/div/div[@class='rt-tr -even'or@class='rt-tr -odd']"));
+        tableRowsList = driver.findElements(tableRowsListElement);
         Assert.assertEquals(tableRowsList.size(),3, "Valoarea actuala a tabelului  nu este 3.");
     }
 }

@@ -55,9 +55,9 @@ public class PracticeFormTest  extends SharedData {
             elementHelper.clickJSLocator(genderOptionsList.get(2));
         }
 
-        WebElement mobilePhoneElement = driver.findElement(By.xpath("//input[@placeholder='Mobile Number']"));
+        By mobilePhoneElement = By.xpath("//input[@placeholder='Mobile Number']");
         String mobilePhoneValue = "0721345678";
-        mobilePhoneElement.sendKeys(mobilePhoneValue);
+        elementHelper.fillLocator(mobilePhoneElement, mobilePhoneValue);
 
         pageHelper.scrollByPixel(0,500);
 
@@ -93,10 +93,11 @@ public class PracticeFormTest  extends SharedData {
         hobbies.add("Music");
 
         List<WebElement> hobbiesOptionList = driver.findElements(By.xpath("//div[@id='hobbiesWrapper']//label"));
-        for (int index=0; index<hobbiesOptionList.size(); index++){
+        for (int index=0; index<hobbies.size(); index++){
             String currentText = hobbiesOptionList.get(index).getText();
             if (hobbies.contains(currentText)){
-                hobbiesOptionList.get(index).click();
+                elementHelper.clickJSLocator(hobbiesOptionList.get(index));
+
             }
         }
 
@@ -129,50 +130,48 @@ public class PracticeFormTest  extends SharedData {
         WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("example-modal-sizes-title-lg")));
 
-        WebElement thankYouElement = driver.findElement(By.id("example-modal-sizes-title-lg"));
+        By thankYouElement = By.id("example-modal-sizes-title-lg");
         String expectedMessage = "Thanks for submitting the form";
-        String actualMessage = thankYouElement.getText();
-        Assert.assertEquals(actualMessage, expectedMessage);
+        elementHelper.validateTextLocator(thankYouElement, expectedMessage);
+
+        //String actualMessage = thankYouElement.getText();
+        //Assert.assertEquals(actualMessage, expectedMessage);
+        //System.out.println("Testul a fost validat");
+
+        By rowsListElement = By.xpath("//tbody/tr");
+        List<WebElement>rowsList = driver.findElements(rowsListElement);
+        elementHelper.validateTextContainsElement(rowsList.get(0), "StudentName");
+        elementHelper.validateTextContainsElement(rowsList.get(0), firstNameValue);
+        elementHelper.validateTextContainsElement(rowsList.get(0), lastNameValue);
 
 
-        List<WebElement>rowsList = driver.findElements(By.xpath("//tbody/tr"));
-        Assert.assertTrue(rowsList.get(0).getText().contains("StudentName"));
-        Assert.assertTrue(rowsList.get(0).getText().contains(firstNameValue));
-        Assert.assertTrue(rowsList.get(0).getText().contains(lastNameValue));
+        elementHelper.validateTextContainsElement(rowsList.get(1), "Student Email");
+        elementHelper.validateTextContainsElement(rowsList.get(1), emailValue);
 
+        elementHelper.validateTextContainsElement(rowsList.get(2), "Gender");
+        elementHelper.validateTextContainsElement(rowsList.get(2), genderValue);
 
-        Assert.assertTrue(rowsList.get(1).getText().contains("Student Email"));
-        Assert.assertTrue(rowsList.get(1).getText().contains(emailValue));
+        elementHelper.validateTextContainsElement(rowsList.get(3), "Mobile");
+        elementHelper.validateTextContainsElement(rowsList.get(3), mobilePhoneValue);
 
-        Assert.assertTrue(rowsList.get(2).getText().contains("Gender"));
-        Assert.assertTrue(rowsList.get(2).getText().contains(genderValue));
+        elementHelper.validateTextContainsElement(rowsList.get(5), "Subjects");
+        elementHelper.validateTextContainsElement(rowsList.get(5), "Maths");
+        elementHelper.validateTextContainsElement(rowsList.get(5), "Arts");
+        elementHelper.validateTextContainsElement(rowsList.get(5), "Biology");
 
-        Assert.assertTrue(rowsList.get(3).getText().contains("Mobile"));
-        Assert.assertTrue(rowsList.get(3).getText().contains(mobilePhoneValue));
+        elementHelper.validateTextContainsElement(rowsList.get(6), "Hobbies");
+        elementHelper.validateTextContainsElement(rowsList.get(6), "Sports");
+        elementHelper.validateTextContainsElement(rowsList.get(6), "Music");
 
+        elementHelper.validateTextContainsElement(rowsList.get(7), "Picture");
+        elementHelper.validateTextContainsElement(rowsList.get(7), "images.png");
 
-        String subjectStringValue = String.join(", ", subjects);
-        Assert.assertTrue(rowsList.get(5).getText().contains("Subjects"));
-        System.out.println(rowsList.get(5));
-        System.out.println(subjectStringValue);
-        Assert.assertTrue(rowsList.get(5).getText().contains(subjectStringValue));
+        elementHelper.validateTextContainsElement(rowsList.get(8), "Address");
+        elementHelper.validateTextContainsElement(rowsList.get(8), currentAddressValue);
 
-        String hobbiesStringValue = String.join(", ", hobbies);
-        Assert.assertTrue(rowsList.get(6).getText().contains("Hobbies"));
-        Assert.assertTrue(rowsList.get(6).getText().contains(hobbiesStringValue));
-
-        Assert.assertTrue(rowsList.get(7).getText().contains("Picture"));
-        Assert.assertTrue(rowsList.get(7).getText().contains("images.png"));
-
-        Assert.assertTrue(rowsList.get(8).getText().contains("Address"));
-        Assert.assertTrue(rowsList.get(8).getText().contains(currentAddressValue));
-
-        Assert.assertTrue(rowsList.get(9).getText().contains("State and City"));
-        Assert.assertTrue(rowsList.get(9).getText().contains(stateValue));
-        Assert.assertTrue(rowsList.get(9).getText().contains(cityValue));
-
-
-
+        elementHelper.validateTextContainsElement(rowsList.get(9), "State and City");
+        elementHelper.validateTextContainsElement(rowsList.get(9), stateValue);
+        elementHelper.validateTextContainsElement(rowsList.get(9), cityValue);
 
     }
 }
