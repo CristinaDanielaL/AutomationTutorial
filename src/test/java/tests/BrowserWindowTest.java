@@ -8,6 +8,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
+import pages.BrowserWindowPage;
+import pages.IndexPage;
 import sharedData.SharedData;
 
 import java.time.Duration;
@@ -20,36 +22,15 @@ public class BrowserWindowTest extends SharedData {
     @Test
     public void metodaTest() {
 
-        TabWindowHelper tabWindowHelper = new TabWindowHelper(driver);
 
-        ElementHelper elementHelper = new ElementHelper(driver);
+        IndexPage indexPage = new IndexPage(driver);
+        indexPage.enterOnAlertFrameWindowMenu();
 
+        indexPage.enterOnBrowserWindowsSubmenu();
 
-        By alertFrameWindowsMenu = By.xpath("//h5[text()='Alerts, Frame & Windows']");
-        elementHelper.clickJSLocator(alertFrameWindowsMenu);
-
-        By browserWindowsSubMenu = By.xpath("//span[text()='Browser Windows']");
-        elementHelper.clickJSLocator(browserWindowsSubMenu);
-
-        By newTabClick = By.id("tabButton");
-        elementHelper.clickLocator(newTabClick);
-
-        System.out.println(driver.getCurrentUrl());
-
-       tabWindowHelper.switchToSpecificTabWindow(1);
-
-        System.out.println(driver.getCurrentUrl());
-
-        tabWindowHelper.closeCurrentTabWindow();
-
-        tabWindowHelper.switchToSpecificTabWindow(0);
-
-        By newWindowClick = By.id("windowButton");
-        elementHelper.clickLocator(newWindowClick);
-
-        tabWindowHelper.switchToSpecificTabWindow(1);
-
-        System.out.println(driver.getCurrentUrl());
+        BrowserWindowPage browserWindowPage = new BrowserWindowPage(driver);
+        browserWindowPage.interactWithSpecificTab();
+        browserWindowPage.interactWithSpecificWindow();
 
     }
 }
