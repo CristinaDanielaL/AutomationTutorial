@@ -14,18 +14,25 @@ public class ElementHelper {
 
         this.driver = driver;
     }
-    public void waitForElementVisible (By locator){
+
+    public void waitForElementVisible(By locator) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
-    public void waitForElementVisible (WebElement locator) {
+    public void waitForElementVisible(WebElement locator) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOf(locator));
+
+    }
+
+    public void waitForElementsVisible(By locator) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
     }
 
 
-    public void clickLocator (By locator){
+    public void clickLocator(By locator) {
         waitForElementVisible(locator);
         driver.findElement(locator).click();
     }
@@ -47,28 +54,28 @@ public class ElementHelper {
         driver.findElement(locator).sendKeys(value);
     }
 
-    public void fillPressLocator (By locator, String value, Keys key){
+    public void fillPressLocator(By locator, String value, Keys key) {
         waitForElementVisible(locator);
         driver.findElement(locator).sendKeys(value);
         driver.findElement(locator).sendKeys(key);
     }
 
-    public void validateTextLocator (By locator, String expected) {
+    public void validateTextLocator(By locator, String expected) {
         waitForElementVisible(locator);
         String actualMessage = driver.findElement(locator).getText();
         Assert.assertEquals(actualMessage, expected);
     }
 
-    public void validateTextContainsElement (WebElement element, String text) {
+    public void validateTextContainsElement(WebElement element, String text) {
         waitForElementVisible(element);
         Assert.assertTrue(element.getText().contains(text));
     }
 
-    public void clearFilledLocator (By locator, String text) {
+    public void clearFilledLocator(By locator, String text) {
         waitForElementVisible(locator);
         driver.findElement(locator).clear();
         driver.findElement(locator).sendKeys(text);
-
     }
 
 }
+
