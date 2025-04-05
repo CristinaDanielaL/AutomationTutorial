@@ -1,15 +1,13 @@
 package pages;
 
 import helpMethods.ElementHelper;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import pageLocators.WebtableLocators;
 
 import java.util.List;
 
-import static pageLocators.PracticeFormsLocators.rowsListElement;
+import static pageLocators.PracticeFormsLocators.tableRowsListElement;
 import static pageLocators.WebtableLocators.*;
 
 public class WebtablePage {

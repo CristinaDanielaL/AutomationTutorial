@@ -1,5 +1,6 @@
 package sharedData;
 
+import loggerUtility.LoggerUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
@@ -12,6 +13,7 @@ public class SharedData {
     //vom face acest lucru folosind adnotari de testNG
 
     public WebDriver driver;
+    public String nameTest;
 
     @BeforeMethod
     public void prepareEnviroment(){
@@ -20,10 +22,18 @@ public class SharedData {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
+        nameTest = this.getClass().getSimpleName();
+        LoggerUtility.startTest(nameTest);
+
+
     }
 
     @AfterMethod
     public void clearEnviroment (){
         driver.quit();
+
+        nameTest = this.getClass().getSimpleName();
+        LoggerUtility.finishTest(nameTest);
+
     }
 }

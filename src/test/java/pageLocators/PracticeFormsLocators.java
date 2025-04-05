@@ -9,7 +9,7 @@ public class PracticeFormsLocators {
     public static final By genderOptionsElement = By.xpath("//input[@name='gender']");
     public static final By mobilePhoneElement = By.xpath("//input[@placeholder='Mobile Number']");
     public static final By subjectsElement = By.id("subjectsInput");
-    public static final By hobbiesOptionList = By.xpath("//div[@id='hobbiesWrapper']//label");
+    //public static final By hobbiesOptionList = By.xpath("//div[@id='hobbiesWrapper']//label");
     public static final By pictureElement = By.id("uploadPicture");
     public static final By currentAddressElement = By.id("currentAddress");
     public static final By stateElement = By.xpath("//div[text()='Select State']");
@@ -18,6 +18,6 @@ public class PracticeFormsLocators {
     public static final By cityInputElement = By.id("react-select-4-input");
     public static final By submitElement = By.id("submit");
     public static final By thankYouElement = By.id("example-modal-sizes-title-lg");
-    public static final By rowsListElement = By.xpath("//tbody/tr");
+    public static final By tableRowsListElement = By.xpath("//tbody/tr");
 
 }

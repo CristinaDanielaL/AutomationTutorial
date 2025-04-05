@@ -10,6 +10,7 @@ import java.io.File;
 import java.util.List;
 
 import static pageLocators.PracticeFormsLocators.*;
+import static pageLocators.WebtableLocators.tableRowsListElement;
 
 public class PracticeFormPage {
     private WebDriver driver;
@@ -74,18 +75,18 @@ public class PracticeFormPage {
         elementHelper.fillLocator(currentAddressElement, currentAddressValue);
     }
 
-    public void fillState (String stateInputValue) {
+    public void fillState (String stateValue) {
         elementHelper.clickJSLocator(stateElement);
-        elementHelper.fillPressLocator(stateInputElement, stateInputValue, Keys.ENTER);
+        elementHelper.fillPressLocator(stateInputElement, stateValue, Keys.ENTER);
     }
 
     public void fillCity (String cityInputValue) {
-        elementHelper.clickJSLocator(cityInputElement);
+        elementHelper.clickJSLocator(cityElement);
         elementHelper.fillPressLocator(cityInputElement, cityInputValue, Keys.ENTER);
     }
 
     public void submitClick () {
-        elementHelper.clickLocator(submitElement);
+        elementHelper.clickJSLocator(submitElement);
     }
 
     public void validateThankYouMessage (String expectedMessage) {
@@ -97,40 +98,40 @@ public class PracticeFormPage {
                                      String emailValue, String genderValue, String mobilePhoneValue,
                                      String currentAddressValue, String stateInputValue, String cityInputValue) {
 
-        By rowsListElement = By.xpath("//tbody/tr");
-        List<WebElement>rowsList = driver.findElements(rowsListElement);
-        elementHelper.validateTextContainsElement(rowsList.get(0), "StudentName");
-        elementHelper.validateTextContainsElement(rowsList.get(0), firstNameValue);
-        elementHelper.validateTextContainsElement(rowsList.get(0), lastNameValue);
+
+        List<WebElement> tableRowsList = driver.findElements(tableRowsListElement);
+        elementHelper.validateTextContainsElement(tableRowsList.get(0), "StudentName");
+        elementHelper.validateTextContainsElement(tableRowsList.get(0), firstNameValue);
+        elementHelper.validateTextContainsElement(tableRowsList.get(0), lastNameValue);
 
 
-        elementHelper.validateTextContainsElement(rowsList.get(1), "Student Email");
-        elementHelper.validateTextContainsElement(rowsList.get(1), emailValue);
+        elementHelper.validateTextContainsElement(tableRowsList.get(1), "Student Email");
+        elementHelper.validateTextContainsElement(tableRowsList.get(1), emailValue);
 
-        elementHelper.validateTextContainsElement(rowsList.get(2), "Gender");
-        elementHelper.validateTextContainsElement(rowsList.get(2), genderValue);
+        elementHelper.validateTextContainsElement(tableRowsList.get(2), "Gender");
+        elementHelper.validateTextContainsElement(tableRowsList.get(2), genderValue);
 
-        elementHelper.validateTextContainsElement(rowsList.get(3), "Mobile");
-        elementHelper.validateTextContainsElement(rowsList.get(3), mobilePhoneValue);
+        elementHelper.validateTextContainsElement(tableRowsList.get(3), "Mobile");
+        elementHelper.validateTextContainsElement(tableRowsList.get(3), mobilePhoneValue);
 
-        elementHelper.validateTextContainsElement(rowsList.get(5), "Subjects");
-        elementHelper.validateTextContainsElement(rowsList.get(5), "Maths");
-        elementHelper.validateTextContainsElement(rowsList.get(5), "Arts");
-        elementHelper.validateTextContainsElement(rowsList.get(5), "Biology");
+        elementHelper.validateTextContainsElement(tableRowsList.get(5), "Subjects");
+        elementHelper.validateTextContainsElement(tableRowsList.get(5), "Maths");
+        elementHelper.validateTextContainsElement(tableRowsList.get(5), "Arts");
+        elementHelper.validateTextContainsElement(tableRowsList.get(5), "Biology");
 
-        elementHelper.validateTextContainsElement(rowsList.get(6), "Hobbies");
-        elementHelper.validateTextContainsElement(rowsList.get(6), "Sports");
-        elementHelper.validateTextContainsElement(rowsList.get(6), "Music");
+        elementHelper.validateTextContainsElement(tableRowsList.get(6), "Hobbies");
+        elementHelper.validateTextContainsElement(tableRowsList.get(6), "Sports");
+        elementHelper.validateTextContainsElement(tableRowsList.get(6), "Music");
 
-        elementHelper.validateTextContainsElement(rowsList.get(7), "Picture");
-        elementHelper.validateTextContainsElement(rowsList.get(7), "images.png");
+        elementHelper.validateTextContainsElement(tableRowsList.get(7), "Picture");
+        elementHelper.validateTextContainsElement(tableRowsList.get(7), "images.png");
 
-        elementHelper.validateTextContainsElement(rowsList.get(8), "Address");
-        elementHelper.validateTextContainsElement(rowsList.get(8), currentAddressValue);
+        elementHelper.validateTextContainsElement(tableRowsList.get(8), "Address");
+        elementHelper.validateTextContainsElement(tableRowsList.get(8), currentAddressValue);
 
-        elementHelper.validateTextContainsElement(rowsList.get(9), "State and City");
-        elementHelper.validateTextContainsElement(rowsList.get(9), stateInputValue);
-        elementHelper.validateTextContainsElement(rowsList.get(9), cityInputValue);
+        elementHelper.validateTextContainsElement(tableRowsList.get(9), "State and City");
+        elementHelper.validateTextContainsElement(tableRowsList.get(9), stateInputValue);
+        elementHelper.validateTextContainsElement(tableRowsList.get(9), cityInputValue);
 
     }
 
